@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:shared="clr-namespace:WorkoutHelper.Shared.Models;assembly=WorkoutHelper.Shared"
+             xmlns:models="clr-namespace:WorkoutHelper.Models"
+             xmlns:vm="clr-namespace:WorkoutHelper.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:session="clr-namespace:WorkoutHelper.Services"
+             xmlns:dict="clr-namespace:WorkoutHelper.Views.DataTemplateSelectors"
+             xmlns:windows="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.WindowsSpecific;assembly=Microsoft.Maui.Controls"
+             x:Class="WorkoutHelper.Views.MainPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="StackLayout" x:Key="Category">
+                <Setter Property="Margin" Value="0,10"/>
+            </Style>
+
+            <Style TargetType="Button" x:Key="DifficultyButtons">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource SecondaryDarkText}}"/>
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource PrimaryDark}, Dark={StaticResource Primary}}"/>
+            </Style>
+
+            <ResourceDictionary.MergedDictionaries>
+                <dict:WorkoutItemDataTemplate/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.BindingContext>
+        <vm:ExercisesViewModel />
+    </ContentPage.BindingContext>
+
+    <RefreshView Command="{Binding GetExercises}" IsRefreshing="{Binding IsRefreshing}" >
+        <ScrollView>
+            <VerticalStackLayout
+            Padding="30,0"
+            Spacing="5">
+
+                <StackLayout Orientation="Horizontal" Spacing="10">
+                    <Button
+                    x:Name="LightDarkBtn"
+                    Text="Light Dark Switch" 
+                    SemanticProperties.Hint="Changes the app theme to dark light mode"
+                    Clicked="LightDarkBtn_Clicked"
+                    HorizontalOptions="Fill" />
+
+                    <!--<Button
+                    Command="{Binding GetExercises}"
+                    Text="Get Exercises" 
+                    HorizontalOptions="Fill" />-->
+
+                    <Button Command="{Binding LoginCommand}" Text="Login" x:Name="LoginButton"/>
+                    <Button Command="{Binding AddExerciseCommand}" Text="Add Exercise" x:Name="AddExerciseButton"/>
+                    <Button Text="JsonData" Clicked="JsonData_Clicked" />
+                </StackLayout>
+                <CollectionView ItemsSource="{Binding Exercises}"  ItemTemplate="{StaticResource EditTemplate}">
+                    <CollectionView.Header>
+                        <StackLayout Spacing="10" Margin="0,0,0,20">
+                            <FlexLayout Direction="Row" Wrap="Wrap" AlignItems="Center" AlignContent="SpaceBetween" JustifyContent="Center">
+                                <Button Text="Clear" Command="{Binding ClearCommand}" Margin="5"/>
+                                <Picker x:Name="DaysPicker" ItemsSource="{Binding DaysList}" Margin="5" SelectedItem="{Binding SelectedDay}" ItemDisplayBinding="{Binding Name}" MinimumWidthRequest="50"/>
+                                <SearchBar SearchCommand="{Binding SearchedPressed}" Margin="5" Text="{Binding SearchText}" MinimumWidthRequest="150"/>
+                            </FlexLayout>
+                        </StackLayout>
+                    </CollectionView.Header>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </RefreshView>
+</ContentPage>

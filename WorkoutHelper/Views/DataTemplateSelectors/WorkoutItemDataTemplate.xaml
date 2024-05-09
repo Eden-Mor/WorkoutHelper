@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:selector="clr-namespace:WorkoutHelper.Views.DataTemplateSelectors"
+                    xmlns:models="clr-namespace:WorkoutHelper.Models"
+                    x:Class="WorkoutHelper.Views.DataTemplateSelectors.WorkoutItemDataTemplate">
+
+    <DataTemplate x:DataType="models:CombinedExerciseData" x:Key="EditTemplate">
+        <Frame Margin="0,10" BackgroundColor="{Binding PersonalizedExerciseData.DayColor, Mode=OneWay}">
+            <StackLayout  Spacing="10">
+                <StackLayout Orientation="Horizontal">
+                    <CheckBox IsChecked="{Binding PersonalizedExerciseData.IsCompleted}" HorizontalOptions="End" CheckedChanged="CheckBox_CheckedChanged"/>
+                    <Entry Text="{Binding PersonalizedExerciseData.MachineNumber}" StyleClass="transparent, contrast_text" Unfocused="Save_Unfocused" FontSize="27" />
+                    <Label  FontSize="Large" Text="{Binding ExerciseInfo.Name, StringFormat=' - {0} - '}"/>
+                    <Picker 
+                        x:Name="picker"
+                        BackgroundColor="Transparent" 
+                        Unfocused="Save_Unfocused"
+                        ItemsSource="{Binding PersonalizedExerciseData.DayList}" 
+                        SelectedItem="{Binding PersonalizedExerciseData.Day}"/>
+                </StackLayout>
+
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                    <Frame>
+                        <StackLayout>
+                            <Label Text="Repititions"/>
+                            <Entry Text="{Binding PersonalizedExerciseData.Reps}" Margin="20,0,0,0" StyleClass="transparent, contrast_text" Unfocused="Save_Unfocused"/>
+                        </StackLayout>
+                    </Frame>
+
+                    <Frame Grid.Column="2">
+                        <StackLayout>
+                            <Label Text="Weight"/>
+                            <Entry Text="{Binding PersonalizedExerciseData.Weight}" Margin="20,0,0,0" StyleClass="transparent, contrast_text" Unfocused="Save_Unfocused" />
+                        </StackLayout>
+                    </Frame>
+
+                    <Frame Grid.Column="1">
+                        <StackLayout >
+                            <Label Text="Sets"/>
+                            <Entry Text="{Binding PersonalizedExerciseData.Sets}" Margin="20,0,0,0" StyleClass="transparent, contrast_text" Unfocused="Save_Unfocused"/>
+                        </StackLayout>
+                    </Frame>
+
+                    <!--<StackLayout Orientation="Horizontal" Spacing="10" Grid.Column="1" Grid.Row="1">
+    <Button Text="-" Style="{StaticResource DifficultyButtons}"/>
+    <Button Text="+" Style="{StaticResource DifficultyButtons}"/>
+</StackLayout>-->
+                </Grid>
+
+                <Label Text="Notes" FontSize="Medium"/>
+                <Entry Text="{Binding PersonalizedExerciseData.ExerciseNote}" FontSize="Small" StyleClass="transparent, contrast_text" Unfocused="Save_Unfocused"/>
+
+            </StackLayout>
+        </Frame>
+    </DataTemplate>
+
+</ResourceDictionary>

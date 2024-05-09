@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WorkoutHelper.Views.ExerciseEditorViewPage"
+             Title="ExerciseEditorViewPage"
+             xmlns:models="clr-namespace:WorkoutHelper.Models"
+             xmlns:data="clr-namespace:WorkoutHelper.Data"
+             Shell.NavBarIsVisible="False"
+             x:DataType="models:CombinedExerciseData">
+
+    <Frame  Margin="20" BackgroundColor="{Binding PersonalizedExerciseData.DayColor}">
+        <StackLayout  Spacing="10">
+
+            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="10">
+                <Label Text="{Binding ExerciseInfo.Name}" FontSize="Large"/>
+                <Picker Title="Day" SelectedItem="{Binding PersonalizedExerciseData.Day}" x:Name="DaysPicker" Grid.Column="1" BackgroundColor="{AppThemeBinding Dark={StaticResource OffBlack}, Light={StaticResource White}}"/>
+                <Picker Title="Machine #" SelectedItem="{Binding PersonalizedExerciseData.MachineNumber}" x:Name="MachineNumberPicker" BackgroundColor="{AppThemeBinding Dark={StaticResource OffBlack}, Light={StaticResource White}}" Grid.Column="2"/>
+                <Button Text="Save" HorizontalOptions="End" Grid.Column="3" Clicked="Save_Clicked"/>
+            </Grid>
+
+            <Grid ColumnDefinitions="*,*" RowDefinitions="*,*" ColumnSpacing="10" RowSpacing="10">
+                <Frame>
+                    <StackLayout>
+                        <Label Text="Repititions"/>
+                        <Picker Margin="20,0,0,0" x:Name="RepsPicker" SelectedItem="{Binding PersonalizedExerciseData.Reps}"/>
+                    </StackLayout>
+                </Frame>
+
+                <Frame Grid.Row="1">
+                    <StackLayout>
+                        <Label Text="Weight"/>
+                        <Picker Margin="20,0,0,0" x:Name="WeightPicker" SelectedItem="{Binding PersonalizedExerciseData.Weight}"/>
+                    </StackLayout>
+                </Frame>
+
+                <Frame Grid.Column="1">
+                    <StackLayout >
+                        <Label Text="Sets"/>
+                        <Picker Margin="20,0,0,0" x:Name="SetPicker" SelectedItem="{Binding PersonalizedExerciseData.Sets}"/>
+                    </StackLayout>
+                </Frame>
+
+            </Grid>
+
+            <StackLayout>
+                <Label Text="Notes" FontSize="Medium"/>
+                <Frame Grid.Column="1">
+                    <Entry Text="{Binding PersonalizedExerciseData.ExerciseNote}" FontSize="Small"/>
+                </Frame>
+            </StackLayout>
+
+            <StackLayout>
+                <Button Text="Save and Close" Clicked="SaveAndClose_Clicked"/>
+            </StackLayout>
+
+        </StackLayout>
+    </Frame>
+
+</ContentPage>

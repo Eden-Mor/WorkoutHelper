@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="WorkoutHelper.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:WorkoutHelper.Views"
+    Shell.FlyoutBehavior="Disabled"
+    Title="WorkoutHelper">
+
+    <FlyoutItem Title="Cats">
+        <Tab>
+
+            <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate views:MainPage}"
+        Route="MainPage" />
+
+        </Tab>
+    </FlyoutItem>
+    <FlyoutItem Title="Dogs">
+        <Tab>
+
+            <ShellContent
+        Title="Workout Page"
+        ContentTemplate="{DataTemplate views:WorkoutViewPage}"
+        Route="WorkoutViewPage" />
+        </Tab>
+    </FlyoutItem>
+
+</Shell>

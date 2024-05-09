@@ -1,0 +1,9 @@
+jwt-key.txt
+postgres-u.txt
+postgres-p.txt
+
+
+# Ignore bin and obj folders for all projects
+**/bin/
+**/obj/
+/.vs
